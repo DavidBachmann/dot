@@ -1,0 +1,77 @@
+[options]
+colorscheme = "SpaceVim"
+colorscheme_bg = "dark"
+statusline_separator = "arrow"
+statusline_iseparator = "arrow"
+buffer_index_type = 4
+enable_tabline_filetype_icon = true
+enable_statusline_mode = true
+filetree_direction = "left"
+bootstrap_before = "myspacevim#before"
+bootstrap_after = "myspacevim#after"
+
+# NOTE: the value should be a list, and each item is the name of the plugin.
+# disabled_plugins = [""]
+
+# Enable autocomplete layer
+[[layers]]
+name = "autocomplete"
+auto_completion_return_key_behavior = "complete"
+auto_completion_tab_key_behavior = "smart"
+
+[[layers]]
+name = "shell"
+default_position = "top"
+default_height = 30
+
+[[layers]]
+name = "git"
+
+[[layers]]
+name = "VersionControl"
+
+
+[[layers]]
+name = "lang#toml"
+
+[[layers]]
+name = "lang#javascript"
+
+[[layers]]
+name = "lang#typescript"
+
+[[custom_plugins]]
+name = "ryanoasis/vim-devicons"
+merged = false
+
+[[custom_plugins]]
+name = "nvim-lua/plenary.nvim"
+merged = false
+
+[[custom_plugins]]
+name = "nvim-telescope/telescope.nvim"
+merged = false
+
+[[custom_plugins]]
+name = "justinmk/vim-sneak"
+merged = false
+
+[[custom_plugins]]
+name = "bkad/CamelCaseMotion"
+merged = false
+
+[[custom_plugins]]
+name = "alvan/vim-closetag"
+merged = false
+
+[[custom_plugins]]
+name = "unkiwii/vim-nerdtree-sync"
+merged = false
+
+[[custom_plugins]]
+name = "luochen1990/rainbow"
+merged = false
+
+[[custom_plugins]]
+name= "cseelus/vim-colors-lucid"
+merged = false
