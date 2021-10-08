@@ -70,42 +70,44 @@ function! myspacevim#before() abort
     "
     " Telescope
     "
-    call SpaceVim#custom#SPC('nnoremap', ['f', 'f'], '<cmd>Telescope find_files<cr>', 'Telescope: Find files', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['f', 'g'], '<cmd>Telescope live_grep<cr>', 'Telescope: Live grep', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['f', 'b'], '<cmd>Telescope buffers<cr>', 'Telescope: Find buffer', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['f', 'f'], '<cmd>Telescope find_files<CR>', 'Telescope: Find files', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['f', 'g'], '<cmd>Telescope live_grep<CR>', 'Telescope: Live grep', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['f', 'b'], '<cmd>Telescope buffers<CR>', 'Telescope: Find buffer', 1)
 
 
 endfunction
 
 function! myspacevim#after() abort
 
-  "
-  " eslint via Neomake
-  "
+    "
+    " eslint via Neomake
+    "
 
-  let g:neomake_typescript_eslint_maker =  {
-        \ 'exe': 'npx',
-        \ 'args': ['--quiet', 'eslint', '--format=compact'],
-        \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-        \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
-        \ 'cwd': '%:p:h',
-        \ 'output_stream': 'stdout',
-        \ }
+    let g:neomake_typescript_eslint_maker =  {
+      \ 'exe': 'npx',
+      \ 'args': ['--quiet', 'eslint', '--format=compact'],
+      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+      \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
+      \ 'cwd': '%:p:h',
+      \ 'output_stream': 'stdout',
+      \ }
 
-  let g:neomake_javascript_eslint_maker =  {
-        \ 'exe': 'npx',
-        \ 'args': ['--quiet', 'eslint', '--format=compact'],
-        \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-        \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
-        \ 'cwd': '%:p:h',
-        \ 'output_stream': 'stdout',
-        \ }
+    let g:neomake_javascript_eslint_maker =  {
+      \ 'exe': 'npx',
+      \ 'args': ['--quiet', 'eslint', '--format=compact'],
+      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+      \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
+      \ 'cwd': '%:p:h',
+      \ 'output_stream': 'stdout',
+      \ }
 
+    let g:neoformat_enabled_javascript = ['prettier']
+    let g:neoformat_enabled_typescript = ['prettier']
+    let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+    let g:neomake_typescript_enabled_makers = ['eslint', 'tsc']
 
-  let g:neoformat_enabled_javascript = ['prettier']
-  let g:neoformat_enabled_typescript = ['prettier']
-  let g:neomake_javascript_jsx_enabled_makers = ['eslint']
-  let g:neomake_typescript_enabled_makers = ['eslint', 'tsc']
+    " Fix vim throwing E523 Not Allowed Here when using Telescope to open files.
+    let g:deoplete#enable_at_startup = 0
 
     "
     " Sneak
