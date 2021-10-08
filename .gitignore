@@ -5,3 +5,4 @@
 
 # do not ignore 
 !/.SpaceVim.d
+!/.zshrc
