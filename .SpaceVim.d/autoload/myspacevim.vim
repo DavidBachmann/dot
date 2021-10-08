@@ -29,11 +29,6 @@ function! myspacevim#before() abort
     " Make NERDTree find the currently focused file
     map <leader>r :NERDTreeFind<cr><C-w>p
 
-    let g:lightline = {
-  \ 'colorscheme': 'dogrun',
-  \ }
-
-
     " Use leader to trigger camel case motion
     let g:camelcasemotion_key = '<leader>'
 
@@ -41,11 +36,10 @@ function! myspacevim#before() abort
     let g:rainbow_active = 1
     " But disable it in NERDTree
     let g:rainbow_conf = {
-    \	'separately': {
-    \		'nerdtree': 0,
-    \	}
-    \}
-
+      \ 'separately': {
+      \   'nerdtree': 0,
+      \ }
+      \}
 
     " vim-closetag options
     let g:closetag_filenames = "*.html,*.jsx,*.ts,*.vue,*.tsx,*.xml"

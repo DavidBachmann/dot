@@ -71,7 +71,3 @@ merged = false
 [[custom_plugins]]
 name = "luochen1990/rainbow"
 merged = false
-
-[[custom_plugins]]
-name= "cseelus/vim-colors-lucid"
-merged = false
