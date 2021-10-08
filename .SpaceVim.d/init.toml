@@ -1,5 +1,5 @@
 [options]
-colorscheme = "SpaceVim"
+colorscheme = "gruvbox"
 colorscheme_bg = "dark"
 statusline_separator = "arrow"
 statusline_iseparator = "arrow"
@@ -20,16 +20,13 @@ auto_completion_return_key_behavior = "complete"
 auto_completion_tab_key_behavior = "smart"
 
 [[layers]]
-name = "shell"
-default_position = "top"
-default_height = 30
-
-[[layers]]
 name = "git"
 
 [[layers]]
 name = "VersionControl"
 
+[[layers]]
+name = "colorscheme"
 
 [[layers]]
 name = "lang#toml"

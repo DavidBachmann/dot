@@ -16,6 +16,9 @@ function! myspacevim#before() abort
     " ... unless they contain at least one capital letter
     set smartcase
 
+    " Configure the gruvbox theme
+    let g:gruvbox_contrast_dark = 'hard'
+
     " Exit Vim if NERDTree is the only window remaining in the only tab.
     autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
