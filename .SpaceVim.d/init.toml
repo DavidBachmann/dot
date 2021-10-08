@@ -45,6 +45,11 @@ merged = false
 name = "nvim-lua/plenary.nvim"
 merged = false
 
+# BurntSushi/ripgrep is required for Telescope's live_grep and grep_string
+[[custom_plugins]]
+name = "BurntSushi/ripgrep"
+merged = false
+
 [[custom_plugins]]
 name = "nvim-telescope/telescope.nvim"
 merged = false

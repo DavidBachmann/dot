@@ -19,6 +19,9 @@ function! myspacevim#before() abort
     " Configure the gruvbox theme
     let g:gruvbox_contrast_dark = 'hard'
 
+    " Show dotfiles in NERDTree
+    let NERDTreeShowHidden=1
+
     " Exit Vim if NERDTree is the only window remaining in the only tab.
     autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
@@ -68,6 +71,7 @@ function! myspacevim#before() abort
     " Telescope
     "
     call SpaceVim#custom#SPC('nnoremap', ['f', 'f'], '<cmd>Telescope find_files<cr>', 'Telescope: Find files', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['f', 'g'], '<cmd>Telescope live_grep<cr>', 'Telescope: Live grep', 1)
     call SpaceVim#custom#SPC('nnoremap', ['f', 'b'], '<cmd>Telescope buffers<cr>', 'Telescope: Find buffer', 1)
 
 
