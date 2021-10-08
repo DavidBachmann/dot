@@ -29,6 +29,10 @@ name = "VersionControl"
 name = "colorscheme"
 
 [[layers]]
+name = "format"
+format_on_save = true
+
+[[layers]]
 name = "lang#toml"
 
 [[layers]]
@@ -45,9 +49,13 @@ merged = false
 name = "nvim-lua/plenary.nvim"
 merged = false
 
-# BurntSushi/ripgrep is required for Telescope's live_grep and grep_string
+# BurntSushi/ripgrep is required for Telescope's live_grep and grep_string features and for Ferret
 [[custom_plugins]]
 name = "BurntSushi/ripgrep"
+merged = false
+
+[[custom_plugins]]
+name = "wincent/ferret"
 merged = false
 
 [[custom_plugins]]
