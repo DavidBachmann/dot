@@ -16,6 +16,10 @@ function! myspacevim#before() abort
     " ... unless they contain at least one capital letter
     set smartcase
 
+    filetype plugin on
+    set omnifunc=syntaxcomplete#Complete
+
+
     " Configure the gruvbox theme
     let g:gruvbox_contrast_dark = 'hard'
 
@@ -29,7 +33,6 @@ function! myspacevim#before() abort
     autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
     " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-    " TODO: Telescope crashes if tried to open in NERDtree buffer.
     autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 | let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
     " Make NERDTree find the currently focused file
@@ -67,12 +70,7 @@ function! myspacevim#before() abort
     " Turn off highlighted search
     nnoremap <esc> :nohlsearch<cr><esc>
 
-    "
-    " Telescope
-    "
-    call SpaceVim#custom#SPC('nnoremap', ['f', 'f'], '<cmd>Telescope find_files<CR>', 'Telescope: Find files', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['f', 'g'], '<cmd>Telescope live_grep<CR>', 'Telescope: Live grep', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['f', 'b'], '<cmd>Telescope buffers<CR>', 'Telescope: Find buffer', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['f', 'z'], '<cmd>FZF<CR>', 'FZF', 1)
 
 
 endfunction
