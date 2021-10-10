@@ -26,15 +26,6 @@ function! myspacevim#before() abort
     " Show dotfiles in NERDTree
     let NERDTreeShowHidden=1
 
-    " Exit Vim if NERDTree is the only window remaining in the only tab.
-    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-    " Close the tab if NERDTree is the only window remaining in it.
-    autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-    " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-    autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 | let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
     " Make NERDTree find the currently focused file
     map <leader>r :NERDTreeFind<cr><C-w>p
 
@@ -67,50 +58,33 @@ function! myspacevim#before() abort
     vnoremap <A-j> :m '>+1<CR>gv=gv
     vnoremap <A-k> :m '<-2<CR>gv=gv
 
-    " Turn off highlighted search
+    " Turn off highlighted search with esc
     nnoremap <esc> :nohlsearch<cr><esc>
 
+    " Put FZF inside SpaceVim SPC-f menu
     call SpaceVim#custom#SPC('nnoremap', ['f', 'z'], '<cmd>FZF<CR>', 'FZF', 1)
+
+    call SpaceVim#custom#SPCGroupName(['L'], '+Location List (eslint etc)')
+    call SpaceVim#custom#SPC('nore', ['L', 'l'], 'll', 'Display errors', 1)
+    call SpaceVim#custom#SPC('nore', ['L', 'n'], 'lnext', 'Display next error', 1)
+    call SpaceVim#custom#SPC('nore', ['L', 'p'], 'lN', 'Display prev error', 1)
+    call SpaceVim#custom#SPC('nore', ['L', 'o'], 'lopen', 'Open location window', 1)
+    call SpaceVim#custom#SPC('nore', ['L', 'c'], 'lclose', 'Close location window', 1)
 
 
 endfunction
 
 function! myspacevim#after() abort
+  let g:neoformat_enabled_javascript = ['prettier']
+  let g:neoformat_enabled_typescript = ['prettier']
+  " let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+  " let g:neomake_javascript_enabled_makers = ['eslint']
+  " let g:neomake_typescript_enabled_makers = ['eslint', 'tsc']
 
-    "
-    " eslint via Neomake
-    "
+  "
+  " Sneak
+  "
+  map s <Plug>Sneak_s
+  map S <Plug>Sneak_S
 
-    let g:neomake_typescript_eslint_maker =  {
-      \ 'exe': 'npx',
-      \ 'args': ['--quiet', 'eslint', '--format=compact'],
-      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-      \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
-      \ 'cwd': '%:p:h',
-      \ 'output_stream': 'stdout',
-      \ }
-
-    let g:neomake_javascript_eslint_maker =  {
-      \ 'exe': 'npx',
-      \ 'args': ['--quiet', 'eslint', '--format=compact'],
-      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-      \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
-      \ 'cwd': '%:p:h',
-      \ 'output_stream': 'stdout',
-      \ }
-
-    let g:neoformat_enabled_javascript = ['prettier']
-    let g:neoformat_enabled_typescript = ['prettier']
-    let g:neomake_javascript_jsx_enabled_makers = ['eslint']
-    let g:neomake_typescript_enabled_makers = ['eslint', 'tsc']
-
-    " Fix vim throwing E523 Not Allowed Here when using Telescope to open files.
-    let g:deoplete#enable_at_startup = 0
-
-    "
-    " Sneak
-    "
-    map s <Plug>Sneak_s
-    map S <Plug>Sneak_S
-
-  endfunction
+endfunction
