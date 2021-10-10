@@ -71,6 +71,12 @@ name = "colorscheme"
 name = "core#statusline"
 
 [[layers]]
+name = "checkers"
+lint_on_the_fly = true
+lint_on_save = false
+show_cursor_error = true
+
+[[layers]]
 name = "format"
 format_on_save = true
 
