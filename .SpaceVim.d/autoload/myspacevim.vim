@@ -64,13 +64,6 @@ function! myspacevim#before() abort
     " Put FZF inside SpaceVim SPC-f menu
     call SpaceVim#custom#SPC('nnoremap', ['f', 'z'], '<cmd>FZF<CR>', 'FZF', 1)
 
-    call SpaceVim#custom#SPCGroupName(['L'], '+Location List (eslint etc)')
-    call SpaceVim#custom#SPC('nore', ['L', 'l'], 'll', 'Display errors', 1)
-    call SpaceVim#custom#SPC('nore', ['L', 'n'], 'lnext', 'Display next error', 1)
-    call SpaceVim#custom#SPC('nore', ['L', 'p'], 'lN', 'Display prev error', 1)
-    call SpaceVim#custom#SPC('nore', ['L', 'o'], 'lopen', 'Open location window', 1)
-    call SpaceVim#custom#SPC('nore', ['L', 'c'], 'lclose', 'Close location window', 1)
-
 
 endfunction
 
