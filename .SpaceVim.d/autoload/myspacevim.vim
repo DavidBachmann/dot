@@ -17,11 +17,14 @@ function! myspacevim#before() abort
     set smartcase
 
     filetype plugin on
-    set omnifunc=syntaxcomplete#Complete
+    set omnifunc=ale#completion#OmniFunc
 
 
     " Configure the gruvbox theme
     let g:gruvbox_contrast_dark = 'hard'
+
+    " Fix files with prettier, and then ESLint.
+    let b:ale_fixers = ['prettier', 'eslint']
 
     " Show dotfiles in NERDTree
     let NERDTreeShowHidden=1
@@ -68,11 +71,7 @@ function! myspacevim#before() abort
 endfunction
 
 function! myspacevim#after() abort
-  let g:neoformat_enabled_javascript = ['prettier']
-  let g:neoformat_enabled_typescript = ['prettier']
-  " let g:neomake_javascript_jsx_enabled_makers = ['eslint']
-  " let g:neomake_javascript_enabled_makers = ['eslint']
-  " let g:neomake_typescript_enabled_makers = ['eslint', 'tsc']
+  let g:neomake_javascript_jsx_enabled_makers = ['eslint']
 
   "
   " Sneak
