@@ -1,6 +1,12 @@
 function! myspacevim#before() abort
     syntax on
     set termguicolors
+    set guifont=Hack\ Nerd\ Font\ Mono:h16
+
+    " Configure neovide, in case we're using it
+    let g:neovide_refresh_rate=60
+    let g:neovide_fullscreen=v:false
+    let g:neovide_cursor_vfx_mode = "pixiedust"
 
     " Leader is comma
     let g:mapleader = ','
@@ -67,7 +73,6 @@ function! myspacevim#before() abort
     " Put FZF inside SpaceVim SPC-f menu
     call SpaceVim#custom#SPC('nnoremap', ['f', 'z'], '<cmd>FZF<CR>', 'FZF', 1)
 
-
 endfunction
 
 function! myspacevim#after() abort
@@ -83,5 +88,29 @@ function! myspacevim#after() abort
   "
   map s <Plug>Sneak_s
   map S <Plug>Sneak_S
+
+  " React TSX colors
+
+  hi tsxTagName guifg=#E06C75
+  hi tsxCloseTagName guifg=#E06C75
+  hi tsxComponentName guifg=#E06C75
+  hi tsxCloseComponentName guifg=#E06C75
+
+  hi tsxCloseString guifg=#F99575
+  hi tsxAttributeBraces guifg=#F99575
+  hi tsxEqual guifg=#F99575
+
+  hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+  hi tsxTypeBraces guifg=#999999
+
+  hi tsxTypes guifg=#666666
+
+  hi ReactState guifg=#C176A7
+  hi ReactProps guifg=#D19A66
+  hi Events ctermfg=204 guifg=#56B6C2
+  hi WebBrowser ctermfg=204 guifg=#56B6C2
+  hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
+
 
 endfunction

@@ -1,5 +1,6 @@
 [options]
-colorscheme = "gruvbox"
+# colorscheme = "gruvbox"
+colorscheme = "rose-pine-dark"
 colorscheme_bg = "dark"
 buffer_index_type = 4
 lint_engine = "ale"
@@ -58,9 +59,13 @@ statusline_right_sections = [
 name = "autocomplete"
 auto_completion_return_key_behavior = "complete"
 auto_completion_tab_key_behavior = "smart"
+auto_completion_enable_snippets_in_popup = false
 
 [[layers]]
 name = "git"
+
+[[layers]]
+name = "ui"
 
 [[layers]]
 name = "VersionControl"
@@ -130,3 +135,6 @@ merged = false
 name = "vim-scripts/star-search"
 merged = false
 
+[[custom_plugins]]
+name="iandwelker/rose-pine-vim"
+merged = false
