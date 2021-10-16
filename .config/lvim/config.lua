@@ -1,4 +1,6 @@
 vim.opt.relativenumber = true -- set relative numbered lines
+lvim.lsp.diagnostics.virtual_text = true
+
 
 -- Use , instead of leader for bkad/CamelCaseMotion
 vim.g.camelcasemotion_key = ','
@@ -48,24 +50,57 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+-- Treesitter parsers change this to a table of the languages you want i.e. {"java", "python", javascript}
+lvim.builtin.treesitter.ensure_installed = "maintained"
 
 -- Configure builtin plugins
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 
--- Treesitter parsers change this to a table of the languages you want i.e. {"java", "python", javascript}
-lvim.builtin.treesitter.ensure_installed = "maintained"
-lvim.builtin.treesitter.ignore_install = { "haskell" }
-
--- Disable virtual text
-lvim.lsp.diagnostics.virtual_text = false
+lvim.lsp.diagnostics.virtual_text = true
 
 -- Additional Plugins
 lvim.plugins = {
-  {"bluz71/vim-nightfly-guicolors"},
-  {"bkad/CamelCaseMotion"},
+  {
+    "bluz71/vim-nightfly-guicolors"
+  },
+  {
+  "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ "*" }, {
+        RGB = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        RRGGBBAA = true, -- #RRGGBBAA hex codes
+        rgb_fn = true, -- CSS rgb() and rgba() functions
+        hsl_fn = true, -- CSS hsl() and hsla() functions
+        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+      })
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufRead",
+    setup = function()
+      vim.g.indentLine_enabled = 1
+      vim.g.indent_blankline_char = "▏"
+      vim.g.indent_blankline_filetype_exclude = {"help", "terminal", "dashboard"}
+      vim.g.indent_blankline_buftype_exclude = {"terminal"}
+      vim.g.indent_blankline_show_trailing_blankline_indent = false
+      vim.g.indent_blankline_show_first_indent_level = false
+    end
+  },
+  {
+    "tpope/vim-surround"
+  },
+  {
+    "bkad/CamelCaseMotion"
+  },
   {
     "folke/trouble.nvim",
       cmd = "TroubleToggle",
   },
+  {
+    "justinmk/vim-sneak"
+  }
 }
