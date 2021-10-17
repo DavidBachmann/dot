@@ -112,6 +112,6 @@ MODE_INDICATOR="%F{yellow}+%f"
 VI_MODE_SET_CURSOR=true
 
 # vim
-alias vim="nvim"
-alias vi="nvim"
-export EDITOR="nvim"
+alias vim="neovide-lv"
+alias vi="neovide-lv"
+export EDITOR="neovide-lv"
