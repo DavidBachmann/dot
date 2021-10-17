@@ -1,9 +1,12 @@
 vim.opt.relativenumber = true -- set relative numbered lines
-lvim.lsp.diagnostics.virtual_text = true
-
-
+vim.opt.guifont = "Hack Nerd Font Mono:h15"
 -- Use , instead of leader for bkad/CamelCaseMotion
 vim.g.camelcasemotion_key = ','
+
+-- Disable mouse clicks
+vim.opt.mouse = ""
+
+lvim.lsp.diagnostics.virtual_text = true
 
 lvim.builtin.dashboard.custom_header = {
 " :::::::::  :::::::::  :::::::::::    ::::::::::: ::::::::  ",
@@ -15,7 +18,6 @@ lvim.builtin.dashboard.custom_header = {
 " #########  #########   #####    ###  ########### ########  ",
 }
 
-
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
@@ -23,15 +25,18 @@ lvim.colorscheme = "nightfly"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
-lvim.keys.normal_mode["<esc>"] = "<cmd>nohlsearch<cr>"
+lvim.keys.normal_mode = {
+  ["<esc>"] = "<cmd>nohlsearch<cr>", -- Turn off highlight after search
+  ["<Tab>"] = "<C-w>", -- Tab is the same as pressing ctrl-w
+  ["ScrollWheelUp"] = "<Nop>", -- disable mouse scroll
+  ["ScrollWheelDown"] = "<Nop>", -- disable mouse scroll
+}
 
--- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
--- lvim.builtin.nvimtree.update_focused_file
+lvim.builtin.nvimtree.show_icons.git = 1
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -44,7 +49,6 @@ lvim.builtin.treesitter.ensure_installed = {
   "typescript",
   "css",
   "rust",
-  "java",
   "yaml",
 }
 
@@ -63,6 +67,9 @@ lvim.lsp.diagnostics.virtual_text = true
 lvim.plugins = {
   {
     "bluz71/vim-nightfly-guicolors"
+  },
+  {
+    "psliwka/vim-smoothie"
   },
   {
   "norcalli/nvim-colorizer.lua",
@@ -91,7 +98,8 @@ lvim.plugins = {
     end
   },
   {
-    "tpope/vim-surround"
+    "tpope/vim-surround",
+     keys = {"c", "d", "y"}
   },
   {
     "bkad/CamelCaseMotion"
