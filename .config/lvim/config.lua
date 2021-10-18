@@ -13,6 +13,14 @@ vim.o.timeoutlen = 800
 vim.api.nvim_set_keymap('n', 's', '<Plug>Lightspeed_s', {})
 vim.api.nvim_set_keymap('n', 'S', '<Plug>Lightspeed_S', {})
 
+-- Neovide thinks I mean ∆ when I type A-j
+vim.api.nvim_set_keymap('n', '∆', ":m .+1<CR>==", {})
+vim.api.nvim_set_keymap('v', '∆', ":m '>+1<CR>gv=gv", {})
+
+-- Neovide thinks I mean ˚ when I type A-k
+vim.api.nvim_set_keymap('n', '˚', ':m .-2<CR>==', {})
+vim.api.nvim_set_keymap('v', '˚', ":m '<-2<CR>gv=gv", {})
+
 -- Disable mouse clicks
 vim.opt.mouse = ""
 
@@ -46,14 +54,6 @@ lvim.keys.normal_mode = {
   ["<S-h>"] = "<cmd>BufferPrevious<cr>", -- Switch buffers
   ["<S-l>"] = "<cmd>BufferNext<cr>", -- Switch buffers
 }
-
--- TODO:
--- nnoremap <A-j> :m .+1<CR>==
--- nnoremap <A-k> :m .-2<CR>==
--- inoremap <A-j> <Esc>:m .+1<CR>==gi
--- inoremap <A-k> <Esc>:m .-2<CR>==gi
--- vnoremap <A-j> :m '>+1<CR>gv=gv
--- vnoremap <A-k> :m '<-2<CR>gv=gv
 
 -- Show filename and path in lualine
 lvim.builtin.lualine.sections.lualine_b = {
