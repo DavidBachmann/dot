@@ -40,10 +40,28 @@ lvim.leader = "space"
 lvim.keys.normal_mode = {
   ["<esc>"] = "<cmd>nohlsearch<cr>", -- Turn off highlight after search
   ["<Tab>"] = "<C-w>", -- Tab is the same as pressing ctrl-w
+  ["<Tab><Tab>"] = "<C-w>w", -- ctrl-w-w
   ["ScrollWheelUp"] = "<Nop>", -- disable mouse scroll
   ["ScrollWheelDown"] = "<Nop>", -- disable mouse scroll
   ["<S-h>"] = "<cmd>BufferPrevious<cr>", -- Switch buffers
   ["<S-l>"] = "<cmd>BufferNext<cr>", -- Switch buffers
+}
+
+-- TODO:
+-- nnoremap <A-j> :m .+1<CR>==
+-- nnoremap <A-k> :m .-2<CR>==
+-- inoremap <A-j> <Esc>:m .+1<CR>==gi
+-- inoremap <A-k> <Esc>:m .-2<CR>==gi
+-- vnoremap <A-j> :m '>+1<CR>gv=gv
+-- vnoremap <A-k> :m '<-2<CR>gv=gv
+
+-- Show filename and path in lualine
+lvim.builtin.lualine.sections.lualine_b = {
+  {
+    'filename',
+    file_status = true, -- displays file status (readonly status, modified status)
+    path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
+  }
 }
 
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
