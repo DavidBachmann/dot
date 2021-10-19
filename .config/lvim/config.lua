@@ -4,6 +4,8 @@ vim.opt.relativenumber = true -- set relative numbered lines
 vim.opt.guifont = "Hack Nerd Font Mono:h15"
 -- Use , instead of leader for bkad/CamelCaseMotion
 vim.g.camelcasemotion_key = ','
+-- Close tags automatically
+vim.g.closetag_filenames = '*.tsx,*.jsx,*.html'
 
 -- We need an annoyingly long timeout for 'surround' movements
 vim.o.timeoutlen = 800
@@ -139,6 +141,9 @@ lvim.plugins = {
   },
   {
     "psliwka/vim-smoothie"
+  },
+  {
+    'alvan/vim-closetag'
   },
   {
     "tpope/vim-surround",
