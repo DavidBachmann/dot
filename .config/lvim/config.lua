@@ -86,6 +86,12 @@ lvim.keys.insert_mode['jj'] = nil
 lvim.keys.insert_mode['jk'] = nil
 lvim.keys.insert_mode['kj'] = nil
 
+-- I use J for joining liness
+lvim.keys.visual_block_mode['J'] = nil
+
+-- I like K for lsp.hover
+lvim.keys.visual_block_mode['K'] = nil
+
 -- Show filename and path in lualine
 lvim.builtin.lualine.sections.lualine_b = {
   {
