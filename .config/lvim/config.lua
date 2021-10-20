@@ -23,8 +23,30 @@ vim.api.nvim_set_keymap('v', '∆', ":m '>+1<CR>gv=gv", {})
 vim.api.nvim_set_keymap('n', '˚', ':m .-2<CR>==', {})
 vim.api.nvim_set_keymap('v', '˚', ":m '<-2<CR>gv=gv", {})
 
--- Disable mouse clicks
-vim.opt.mouse = ""
+
+-- Prettier configuration
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  {
+    exe = "prettierd",
+    filetypes = {
+      "javascriptreact",
+      "javascript",
+      "typescriptreact",
+      "typescript",
+      "json",
+      "markdown",
+    },
+  },
+}
+
+-- here's an example to disable formatting in "tsserver" and "jsonls"
+lvim.lsp.on_attach_callback = function(client, _)
+  if client.name == "tsserver" then
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+  end
+end
 
 lvim.builtin.dashboard.custom_header = {
 "                                                           ",
@@ -56,6 +78,11 @@ lvim.keys.normal_mode = {
   ["<S-h>"] = "<cmd>BufferPrevious<cr>", -- Switch buffers
   ["<S-l>"] = "<cmd>BufferNext<cr>", -- Switch buffers
 }
+
+-- I actually need to type kj and jk on many occations :)
+lvim.keys.insert_mode['jj'] = nil
+lvim.keys.insert_mode['jk'] = nil
+lvim.keys.insert_mode['kj'] = nil
 
 -- Show filename and path in lualine
 lvim.builtin.lualine.sections.lualine_b = {
