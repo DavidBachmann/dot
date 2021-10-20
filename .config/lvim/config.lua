@@ -23,6 +23,8 @@ vim.api.nvim_set_keymap('v', '∆', ":m '>+1<CR>gv=gv", {})
 vim.api.nvim_set_keymap('n', '˚', ':m .-2<CR>==', {})
 vim.api.nvim_set_keymap('v', '˚', ":m '<-2<CR>gv=gv", {})
 
+-- Disable mouse
+vim.opt.mouse = ""
 
 -- Prettier configuration
 local formatters = require "lvim.lsp.null-ls.formatters"
