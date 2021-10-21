@@ -42,7 +42,7 @@ formatters.setup {
   },
 }
 
--- here's an example to disable formatting in "tsserver" and "jsonls"
+-- here's an example to disable formatting in "tsserver"
 lvim.lsp.on_attach_callback = function(client, _)
   if client.name == "tsserver" then
     client.resolved_capabilities.document_formatting = false
@@ -139,6 +139,9 @@ lvim.builtin.nvimtree.setup = {
         { key = "g?",          cb = tree_cb("toggle_help") },
       }
     }
+  },
+  update_focused_file = {
+    enable = true
   }
 }
 
