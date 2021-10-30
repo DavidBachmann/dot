@@ -81,7 +81,16 @@ lvim.keys.normal_mode = {
   ["<S-l>"] = "<cmd>BufferNext<cr>", -- Switch buffers
 }
 
--- I actually need to type kj and jk on many occations :)
+-- keymappings that WhichKey should manage and display
+lvim.builtin.which_key.mappings["S"] = {
+  name = "Spectre",
+  s = {":lua require('spectre').open()<CR>", "Open Spectre"},
+  w = {":lua require('spectre').open_visual({select_word=true})<CR>", "Spectre: Current word"},
+  f = {":lua require('spectre').open_file_search()<CR>", "Spectre: Current file"},
+}
+
+
+-- I actually need to type kj and jk on occation
 lvim.keys.insert_mode['jj'] = nil
 lvim.keys.insert_mode['jk'] = nil
 lvim.keys.insert_mode['kj'] = nil
@@ -147,29 +156,12 @@ lvim.builtin.nvimtree.setup = {
   }
 }
 
--- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "typescript",
-  "css",
-  "rust",
-  "yaml",
-}
-
-lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 -- Treesitter parsers change this to a table of the languages you want i.e. {"java", "python", javascript}
 lvim.builtin.treesitter.ensure_installed = "maintained"
 
 -- Configure builtin plugins
 lvim.builtin.terminal.active = true
-
---lvim.lsp.diagnostics.virtual_text = true
 
 -- Additional Plugins
 lvim.plugins = {
@@ -221,4 +213,7 @@ lvim.plugins = {
     "folke/trouble.nvim",
       cmd = "TroubleToggle",
   },
+  {
+    "windwp/nvim-spectre"
+  }
 }
