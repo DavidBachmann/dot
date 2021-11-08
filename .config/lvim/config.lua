@@ -2,8 +2,10 @@ local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 
 vim.opt.relativenumber = true -- set relative numbered lines
 vim.opt.guifont = "Hack Nerd Font Mono:h15"
+
 -- Use , instead of leader for bkad/CamelCaseMotion
 vim.g.camelcasemotion_key = ','
+
 -- Close tags automatically
 vim.g.closetag_filenames = '*.tsx,*.jsx,*.html'
 
@@ -42,14 +44,6 @@ formatters.setup {
   },
 }
 
--- here's an example to disable formatting in "tsserver"
-lvim.lsp.on_attach_callback = function(client, _)
-  if client.name == "tsserver" then
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
-  end
-end
-
 lvim.builtin.dashboard.custom_header = {
 "                                                           ",
 "                                                           ",
@@ -63,6 +57,9 @@ lvim.builtin.dashboard.custom_header = {
 "                                                           ",
 "                                                           ",
 }
+
+-- show hidden files when running a find command in telescope
+lvim.builtin.telescope.pickers = { find_files = { hidden = true } }
 
 -- general
 lvim.log.level = "warn"
@@ -95,7 +92,7 @@ lvim.keys.insert_mode['jj'] = nil
 lvim.keys.insert_mode['jk'] = nil
 lvim.keys.insert_mode['kj'] = nil
 
--- I use J for joining liness
+-- I use J for joining lines
 lvim.keys.visual_block_mode['J'] = nil
 
 -- I like K for lsp.hover
@@ -110,7 +107,6 @@ lvim.builtin.lualine.sections.lualine_b = {
   }
 }
 
--- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.show_icons.git = 1
@@ -156,12 +152,9 @@ lvim.builtin.nvimtree.setup = {
   }
 }
 
-lvim.builtin.treesitter.highlight.enabled = true
+-- lvim.builtin.treesitter.highlight.enabled = true
 -- Treesitter parsers change this to a table of the languages you want i.e. {"java", "python", javascript}
-lvim.builtin.treesitter.ensure_installed = "maintained"
-
--- Configure builtin plugins
-lvim.builtin.terminal.active = true
+-- lvim.builtin.treesitter.ensure_installed = "maintained"
 
 -- Additional Plugins
 lvim.plugins = {
