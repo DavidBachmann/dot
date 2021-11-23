@@ -88,15 +88,15 @@ lvim.builtin.which_key.mappings["S"] = {
 
 
 -- I actually need to type kj and jk on occation
-lvim.keys.insert_mode['jj'] = nil
-lvim.keys.insert_mode['jk'] = nil
-lvim.keys.insert_mode['kj'] = nil
+lvim.keys.insert_mode['jj'] = false
+lvim.keys.insert_mode['jk'] = false
+lvim.keys.insert_mode['kj'] = false
 
 -- I use J for joining lines
-lvim.keys.visual_block_mode['J'] = nil
+lvim.keys.visual_block_mode['J'] = false
 
 -- I like K for lsp.hover
-lvim.keys.visual_block_mode['K'] = nil
+lvim.keys.visual_block_mode['K'] = false
 
 -- Show filename and path in lualine
 lvim.builtin.lualine.sections.lualine_b = {
