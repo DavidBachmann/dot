@@ -12,6 +12,9 @@ vim.g.closetag_filenames = '*.tsx,*.jsx,*.html'
 -- We need an annoyingly long timeout for 'surround' movements
 vim.o.timeoutlen = 800
 
+-- Enable Blamer for git blames
+vim.g.blamer_enabled = 1
+
 -- Make sure Lightspeed's keymaps are set.
 -- I had issues where native vim 'S' took over Lightspeed's.
 vim.api.nvim_set_keymap('n', 's', '<Plug>Lightspeed_s', {})
@@ -208,5 +211,8 @@ lvim.plugins = {
   },
   {
     "windwp/nvim-spectre"
+  },
+  {
+    "APZelos/blamer.nvim"
   }
 }
