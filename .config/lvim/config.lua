@@ -155,9 +155,15 @@ lvim.builtin.nvimtree.setup = {
   }
 }
 
--- lvim.builtin.treesitter.highlight.enabled = true
+lvim.builtin.treesitter.highlight.enabled = true
 -- Treesitter parsers change this to a table of the languages you want i.e. {"java", "python", javascript}
--- lvim.builtin.treesitter.ensure_installed = "maintained"
+lvim.builtin.treesitter.ensure_installed = "maintained"
+
+lvim.builtin.treesitter.incremental_selection = {
+  enable = true,
+  keymaps = { init_selection = '<CR>', scope_incremental = '<CR>', node_incremental = '<TAB>', node_decremental = '<S-TAB>' }
+}
+
 
 -- Additional Plugins
 lvim.plugins = {
