@@ -31,21 +31,18 @@ vim.api.nvim_set_keymap('v', '˚', ":m '<-2<CR>gv=gv", {})
 -- Disable mouse
 vim.opt.mouse = ""
 
--- Prettier configuration
-local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup {
-  {
-    exe = "prettierd",
-    filetypes = {
-      "javascriptreact",
-      "javascript",
-      "typescriptreact",
-      "typescript",
-      "json",
-      "markdown",
-    },
-  },
+-- Null-ls configuration
+local null_ls = require("null-ls")
+
+-- Register null-ls sources
+local sources = {
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.code_actions.gitsigns,
 }
+
+null_ls.setup({ sources = sources })
+
 
 lvim.builtin.dashboard.custom_header = {
 "                                                           ",
