@@ -15,6 +15,9 @@ vim.o.timeoutlen = 800
 -- Enable Blamer for git blames
 vim.g.blamer_enabled = 1
 
+-- Close quickfix list on item select
+ vim.api.nvim_command('autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>')
+
 -- Make sure Lightspeed's keymaps are set.
 -- I had issues where native vim 'S' took over Lightspeed's.
 vim.api.nvim_set_keymap('n', 's', '<Plug>Lightspeed_s', {})
