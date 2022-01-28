@@ -1,4 +1,5 @@
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+require"fidget".setup{}
 
 vim.opt.relativenumber = true -- set relative numbered lines
 vim.opt.guifont = "Hack Nerd Font Mono:h15"
@@ -14,9 +15,11 @@ vim.o.timeoutlen = 800
 
 -- Enable Blamer for git blames
 vim.g.blamer_enabled = 1
+vim.g.blamer_show_in_insert_modes = 0
+vim.g.blamer_date_format = '%d/%m/%y'
 
 -- Close quickfix list on item select
- vim.api.nvim_command('autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>')
+vim.api.nvim_command('autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>')
 
 -- Make sure Lightspeed's keymaps are set.
 -- I had issues where native vim 'S' took over Lightspeed's.
@@ -80,15 +83,6 @@ lvim.keys.normal_mode = {
   ["<S-h>"] = "<cmd>BufferPrevious<cr>", -- Switch buffers
   ["<S-l>"] = "<cmd>BufferNext<cr>", -- Switch buffers
 }
-
--- keymappings that WhichKey should manage and display
-lvim.builtin.which_key.mappings["S"] = {
-  name = "Spectre",
-  s = {":lua require('spectre').open()<CR>", "Open Spectre"},
-  w = {":lua require('spectre').open_visual({select_word=true})<CR>", "Spectre: Current word"},
-  f = {":lua require('spectre').open_file_search()<CR>", "Spectre: Current file"},
-}
-
 
 -- I actually need to type kj and jk on occation
 lvim.keys.insert_mode['jj'] = false
@@ -177,9 +171,6 @@ lvim.plugins = {
     "psliwka/vim-smoothie"
   },
   {
-    'alvan/vim-closetag'
-  },
-  {
     "tpope/vim-surround",
   },
   {
@@ -212,13 +203,9 @@ lvim.plugins = {
     "bkad/CamelCaseMotion"
   },
   {
-    "folke/trouble.nvim",
-      cmd = "TroubleToggle",
-  },
-  {
-    "windwp/nvim-spectre"
-  },
-  {
     "APZelos/blamer.nvim"
+  },
+  {
+    'j-hui/fidget.nvim'
   }
 }
