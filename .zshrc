@@ -117,3 +117,5 @@ alias vi="nvim"
 alias lvim ="neovide-lv"
 alias neovide="neovide-lv"
 export EDITOR="neovide-lv"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

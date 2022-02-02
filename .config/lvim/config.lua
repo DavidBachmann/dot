@@ -37,6 +37,10 @@ vim.api.nvim_set_keymap('v', '˚', ":m '<-2<CR>gv=gv", {})
 -- Disable mouse
 vim.opt.mouse = ""
 
+-- vim.diagnostic.config({
+--   virtual_text = false,
+-- })
+
 -- Null-ls configuration
 local null_ls = require("null-ls")
 
@@ -207,5 +211,8 @@ lvim.plugins = {
   },
   {
     'j-hui/fidget.nvim'
+  },
+  {
+    "APZelos/blamer.nvim"
   }
 }
