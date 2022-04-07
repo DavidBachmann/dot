@@ -37,10 +37,6 @@ vim.api.nvim_set_keymap('v', '˚', ":m '<-2<CR>gv=gv", {})
 -- Disable mouse
 vim.opt.mouse = ""
 
--- vim.diagnostic.config({
---   virtual_text = false,
--- })
-
 -- Null-ls configuration
 local null_ls = require("null-ls")
 
@@ -53,20 +49,6 @@ local sources = {
 
 null_ls.setup({ sources = sources })
 
-
-lvim.builtin.dashboard.custom_header = {
-"                                                           ",
-"                                                           ",
-" :::::::::  :::::::::  :::::::::::   ::::::::::: ::::::::  ",
-" :+:    :+: :+:    :+:     :+:           :+:    :+:    :+: ",
-" +:+    +:+ +:+    +:+     +:+           +:+    +:+        ",
-" +#+    +:+ +#++:++#+      +#+           +#+    +#++:++#++ ",
-" +#+    +#+ +#+    +#+     +#+           +#+           +#+ ",
-" #+#    #+# #+#    #+# #+# #+#  #+#      #+#    #+#    #+# ",
-" #########  #########   #####   ###  ########### ########  ",
-"                                                           ",
-"                                                           ",
-}
 
 -- show hidden files when running a find command in telescope
 lvim.builtin.telescope.pickers = { find_files = { hidden = true } }
@@ -84,8 +66,8 @@ lvim.keys.normal_mode = {
   ["<Tab><Tab>"] = "<C-w>w", -- ctrl-w-w
   ["ScrollWheelUp"] = "<Nop>", -- disable mouse scroll
   ["ScrollWheelDown"] = "<Nop>", -- disable mouse scroll
-  ["<S-h>"] = "<cmd>BufferPrevious<cr>", -- Switch buffers
-  ["<S-l>"] = "<cmd>BufferNext<cr>", -- Switch buffers
+  ["<S-h>"] = "<cmd>BufferLineCyclePrev<cr>", -- Switch buffers
+  ["<S-l>"] = "<cmd>BufferLineCycleNext<cr>", -- Switch buffers
 }
 
 -- I actually need to type kj and jk on occation
@@ -108,7 +90,6 @@ lvim.builtin.lualine.sections.lualine_b = {
   }
 }
 
-lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.show_icons.git = 1
 lvim.builtin.nvimtree.setup = {
@@ -212,7 +193,4 @@ lvim.plugins = {
   {
     'j-hui/fidget.nvim'
   },
-  {
-    "APZelos/blamer.nvim"
-  }
 }
