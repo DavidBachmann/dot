@@ -96,7 +96,6 @@ lvim.builtin.nvimtree.setup = {
   view = {
     width = 36,
     side = "left",
-    auto_resize = true,
     mappings = {
       list = {
         { key = "<Tab>", action = "", }
