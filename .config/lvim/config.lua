@@ -1,14 +1,10 @@
--- Null-ls configuration
-local null_ls = require("null-ls")
-
 -- Register null-ls sources
-local sources = {
-    null_ls.builtins.formatting.prettierd,
-    null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.code_actions.gitsigns,
-}
-
-null_ls.setup({ sources = sources })
+require("null-ls").setup({
+    sources = {
+      require("null-ls").builtins.formatting.prettierd,
+      require("null-ls").builtins.diagnostics.eslint_d,
+    },
+})
 
 vim.o.cmdheight = 1
 
@@ -19,7 +15,7 @@ vim.opt.mouse = ""
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "punk"
+lvim.colorscheme = "tokyonight"
 
 -- Enable Blamer for git blames
 vim.g.blamer_enabled = 1
@@ -33,13 +29,21 @@ vim.g.camelcasemotion_key = ','
 lvim.leader = "space"
 lvim.keys.normal_mode = {
   ["<esc>"] = "<cmd>nohlsearch<cr>", -- Turn off highlight after search
-  ["<tab>"] = "<C-w>", -- Tab is the same as pressing ctrl-w
-  ["<tab><tab>"] = "<C-w>w", -- ctrl-w-w
+  ["<Tab>"] = "<C-w>", -- Tab is the same as pressing ctrl-w
+  ["<Tab><Tab>"] = "<C-w>w", -- ctrl-w-w
   ["ScrollWheelUp"] = "<Nop>", -- disable mouse scroll
   ["ScrollWheelDown"] = "<Nop>", -- disable mouse scroll
   ["<S-h>"] = "<cmd>BufferLineCyclePrev<cr>", -- Switch buffers
   ["<S-l>"] = "<cmd>BufferLineCycleNext<cr>", -- Switch buffers
 }
+
+-- Iterm thinks I mean ‚àÜ when I type A-j
+vim.api.nvim_set_keymap('n', '‚àÜ', ":m .+1<CR>==", {})
+vim.api.nvim_set_keymap('v', '‚àÜ', ":m '>+1<CR>gv=gv", {})
+
+-- iTerm thinks I mean Àö when I type A-k
+vim.api.nvim_set_keymap('n', 'Àö', ':m .-2<CR>==', {})
+vim.api.nvim_set_keymap('v', 'Àö', ":m '<-2<CR>gv=gv", {})
 
 -- keymappings that WhichKey should manage and display
 lvim.builtin.which_key.mappings["E"] = {
@@ -108,10 +112,17 @@ lvim.builtin.nvimtree.setup = {
 }
 
 
+vim.g.indentLine_enabled = 1
+vim.g.indent_blankline_char = "‚ñè"
+vim.g.indent_blankline_filetype_exclude = {"help", "terminal", "dashboard"}
+vim.g.indent_blankline_buftype_exclude = {"terminal"}
+vim.g.indent_blankline_show_trailing_blankline_indent = false
+vim.g.indent_blankline_show_first_indent_level = false
+
 -- Additional Plugins
 lvim.plugins = {
   {
-    "davidbachmann/vim-punk-colorscheme"
+    "folke/tokyonight.nvim",
   },
   {
     "ggandor/lightspeed.nvim",
@@ -130,11 +141,8 @@ lvim.plugins = {
     event = "BufRead",
     setup = function()
       vim.g.indentLine_enabled = 1
-      vim.g.indent_blankline_char = "▏"
       vim.g.indent_blankline_filetype_exclude = {"help", "terminal", "dashboard"}
       vim.g.indent_blankline_buftype_exclude = {"terminal"}
-      vim.g.indent_blankline_show_trailing_blankline_indent = false
-      vim.g.indent_blankline_show_first_indent_level = false
     end
   },
   {
@@ -142,5 +150,8 @@ lvim.plugins = {
   },
   {
     "APZelos/blamer.nvim"
+  },
+  {
+    "jiangmiao/auto-pairs"
   }
 }
