@@ -1,3 +1,6 @@
+-- Null-ls configuration
+local null_ls = require("null-ls")
+
 -- Register null-ls sources
 require("null-ls").setup({
     sources = {
@@ -5,6 +8,8 @@ require("null-ls").setup({
       require("null-ls").builtins.diagnostics.eslint_d,
     },
 })
+
+null_ls.setup({ sources = sources })
 
 vim.o.cmdheight = 1
 
@@ -49,6 +54,11 @@ vim.api.nvim_set_keymap('v', 'Àö', ":m '<-2<CR>gv=gv", {})
 lvim.builtin.which_key.mappings["E"] = {
   name = "eslint_d",
   f = {"mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", "Fix buffer"},
+}
+
+lvim.builtin.which_key.mappings["s"] = {
+  name = "eslint_d",
+  a = {"<cmd>Telescope resume<CR>", "Again"},
 }
 
 lvim.builtin.alpha.active = true
