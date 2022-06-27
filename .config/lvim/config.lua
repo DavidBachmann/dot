@@ -38,17 +38,9 @@ lvim.keys.normal_mode = {
   ["<Tab><Tab>"] = "<C-w>w", -- ctrl-w-w
   ["ScrollWheelUp"] = "<Nop>", -- disable mouse scroll
   ["ScrollWheelDown"] = "<Nop>", -- disable mouse scroll
-  ["<S-h>"] = "<cmd>BufferLineCyclePrev<cr>", -- Switch buffers
-  ["<S-l>"] = "<cmd>BufferLineCycleNext<cr>", -- Switch buffers
+  ['S'] = '<Plug>Lightspeed_S' -- Sneak search backwards
 }
 
--- Iterm thinks I mean ‚àÜ when I type A-j
-vim.api.nvim_set_keymap('n', '‚àÜ', ":m .+1<CR>==", {})
-vim.api.nvim_set_keymap('v', '‚àÜ', ":m '>+1<CR>gv=gv", {})
-
--- iTerm thinks I mean Àö when I type A-k
-vim.api.nvim_set_keymap('n', 'Àö', ':m .-2<CR>==', {})
-vim.api.nvim_set_keymap('v', 'Àö', ":m '<-2<CR>gv=gv", {})
 
 -- keymappings that WhichKey should manage and display
 lvim.builtin.which_key.mappings["E"] = {
@@ -56,17 +48,8 @@ lvim.builtin.which_key.mappings["E"] = {
   f = {"mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", "Fix buffer"},
 }
 
-lvim.builtin.which_key.mappings["s"] = {
-  name = "eslint_d",
-  a = {"<cmd>Telescope resume<CR>", "Again"},
-}
-
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
-lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
 
 -- I actually need to type kj and jk on occation
 lvim.keys.insert_mode['jj'] = false
@@ -88,42 +71,24 @@ lvim.builtin.lualine.sections.lualine_b = {
   }
 }
 
+
+
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
-  "c",
   "javascript",
   "json",
-  "python",
   "typescript",
   "tsx",
   "css",
-  "rust",
-  "java",
   "yaml",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
-lvim.builtin.nvimtree.setup = {
-  view = {
-    width = 36,
-    side = "left",
-    mappings = {
-      list = {
-        { key = "<Tab>", action = "", }
-      }
-    }
-  },
-  update_focused_file = {
-    enable = true
-  }
-}
-
 
 vim.g.indentLine_enabled = 1
-vim.g.indent_blankline_char = "‚ñè"
 vim.g.indent_blankline_filetype_exclude = {"help", "terminal", "dashboard"}
 vim.g.indent_blankline_buftype_exclude = {"terminal"}
 vim.g.indent_blankline_show_trailing_blankline_indent = false
@@ -160,8 +125,5 @@ lvim.plugins = {
   },
   {
     "APZelos/blamer.nvim"
-  },
-  {
-    "jiangmiao/auto-pairs"
   }
 }
