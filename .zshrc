@@ -114,8 +114,10 @@ VI_MODE_SET_CURSOR=true
 # vim
 alias vim="nvim"
 alias vi="nvim"
-alias lvim ="neovide-lv"
-alias neovide="neovide-lv"
-export EDITOR="neovide-lv"
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$HOME/.local/bin"
+
+alias lvim "~/.local/bin/lvim"
+
+export PNPM_HOME="/Users/davidbachmann/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
