@@ -1,13 +1,26 @@
 -- Null-ls configuration
 -- Register null-ls sources
-require("null-ls").setup({
-    sources = {
-      require("null-ls").builtins.formatting.prettierd,
-      require("null-ls").builtins.diagnostics.eslint_d,
-    },
+
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  sources = {
+    require("null-ls").builtins.formatting.prettierd,
+    require("null-ls").builtins.diagnostics.eslint_d,
+  }
 })
 
+
+
 vim.o.cmdheight = 1
+vim.opt.timeoutlen = 1000
+vim.o.updatetime = 250
+
+-- Disable virtual text disagnostics
+lvim.lsp.diagnostics.virtual_text = false
+lvim.lsp.diagnostics.underline = true
+-- and enable floating diagnostics
+vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- general
 lvim.log.level = "warn"
@@ -19,13 +32,15 @@ vim.g.camelcasemotion_key = ','
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- add your own keymapping
 
 lvim.keys.insert_mode["˚"] = "<Esc>:m .-2<CR>==gi"
 lvim.keys.insert_mode["∆"] = "<Esc>:m .+1<CR>==gi"
 
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<esc>"] = "<cmd>nohlsearch<cr>" -- Turn off highlight after search
+
+lvim.keys.normal_mode["<S-h>"] = "<cmd>BufferLineCyclePrev<cr>"
+lvim.keys.normal_mode["<S-l>"] = "<cmd>BufferLineCycleNext<cr>"
 
 -- Switch line positions up/down
 lvim.keys.normal_mode["˚"] = "<Esc>:m .-2<CR>=="
@@ -52,8 +67,10 @@ lvim.builtin.which_key.mappings["t"] = {
 }
 lvim.builtin.which_key.mappings["E"] = {
   name = "eslint_d",
-  f = {"mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", "Fix buffer"},
+  f = { "mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", "Fix buffer" },
 }
+
+lvim.builtin.which_key.mappings["C"] = { "<cmd>NoNeckPain<CR>", "Center/NoNeckPain.nvim" }
 
 
 -- I actually need to type kj and jk on occation
@@ -71,9 +88,9 @@ lvim.keys.visual_block_mode['K'] = false
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.view.adaptive_size = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -94,116 +111,82 @@ lvim.builtin.treesitter.ensure_installed = {
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
--- generic LSP settings
-
--- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
-
--- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
--- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pyright", opts)
-
--- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
--- ---`:LvimInfo` lists which server(s) are skiipped for the current filetype
--- vim.tbl_map(function(server)
---   return server ~= "emmet_ls"
--- end, lvim.lsp.automatic_configuration.skipped_servers)
-
--- -- you can set a custom on_attach function that will be used for all the language servers
--- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
--- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
--- end
-
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
--- local formatters = require "lvim.lsp.null-ls.formatters"
--- formatters.setup {
---   { command = "black", filetypes = { "python" } },
---   { command = "isort", filetypes = { "python" } },
---   {
---     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---     command = "prettier",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     extra_args = { "--print-with", "100" },
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "typescript", "typescriptreact" },
---   },
--- }
-
--- -- set additional linters
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup {
---   { command = "flake8", filetypes = { "python" } },
---   {
---     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---     command = "shellcheck",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     extra_args = { "--severity", "warning" },
---   },
---   {
---     command = "codespell",
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "javascript", "python" },
---   },
--- }
-
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = { "*.json", "*.jsonc" },
---   -- enable wrap mode for json files only
---   command = "setlocal wrap",
--- })
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "zsh",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
---     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
-
-
 -- Additional Plugins
 lvim.plugins = {
-  {
-    "folke/tokyonight.nvim",
-  },
-  {
-    "ggandor/lightspeed.nvim",
-  },
   {
     "psliwka/vim-smoothie"
   },
   {
-    "ur4ltz/surround.nvim",
-      config = function()
-        require"surround".setup {mappings_style = "surround"}
-      end
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    setup = function()
-      vim.g.indentLine_enabled = 1
-      vim.g.indent_blankline_filetype_exclude = {"help", "terminal", "dashboard"}
-      vim.g.indent_blankline_buftype_exclude = {"terminal"}
+    "ggandor/leap.nvim",
+    event = 'BufRead',
+    config = function()
+      require('leap').add_default_mappings(true)
     end
   },
   {
     "bkad/CamelCaseMotion"
   },
   {
-    "APZelos/blamer.nvim"
-  },
-  {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
+  {
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
+  {
+    "shortcuts/no-neck-pain.nvim",
+    config = function()
+      require("no-neck-pain").setup({
+        -- The width of the focused buffer when enabling NNP.
+        -- If the available window size is less than `width`, the buffer will take the whole screen.
+        width = 143,
+        -- Prints useful logs about what event are triggered, and reasons actions are executed.
+        debug = false,
+        -- Disables NNP if the last valid buffer in the list has been closed.
+        disableOnLastBuffer = false,
+        -- When `true`, disabling NNP kills every split/vsplit buffers except the main NNP buffer.
+        killAllBuffersOnDisable = false,
+        -- Options related to the side buffers.
+        buffers = {
+          -- The background options of the side buffer(s).
+          background = {
+            colorCode = nil,
+          },
+          -- When `false`, the `left` padding buffer won't be created.
+          left = true,
+          -- When `false`, the `right` padding buffer won't be created.
+          right = true,
+          -- When `true`, the side buffers will be named `no-neck-pain-left` and `no-neck-pain-right` respectively.
+          showName = false,
+          -- The buffer options when creating the buffer.
+          options = {
+            -- Buffer-scoped options, below are the default values, but any `vim.bo` options are valid and will be forwarded to the buffer creation.
+            bo = {
+              filetype = "no-neck-pain",
+              buftype = "nofile",
+              bufhidden = "hide",
+              modifiable = false,
+              buflisted = false,
+              swapfile = false,
+            },
+            -- Window-scoped options, below are the default values, but any `vim.wo` options are valid and will be forwarded to the buffer creation.
+            wo = {
+              cursorline = false,
+              cursorcolumn = false,
+              number = false,
+              relativenumber = false,
+              foldenable = false,
+              list = false,
+            },
+          },
+        },
+      })
+    end
+  }
 }
