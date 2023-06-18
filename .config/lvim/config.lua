@@ -7,7 +7,6 @@ vim.diagnostic.config({
 })
 vim.opt.guifont = "Hack Nerd Font Mono:h15"
 vim.g.camelcasemotion_key = ','
-
 -- general
 lvim.format_on_save = true
 lvim.colorscheme = "tokyonight"
@@ -100,14 +99,29 @@ lvim.plugins = {
   {
     'wfxr/minimap.vim',
     build = "cargo install --locked code-minimap",
-    -- cmd = {"Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight"},
-    config = function()
-      vim.cmd("let g:minimap_width = 10")
-      vim.cmd("let g:minimap_auto_start = 1")
-      vim.cmd("let g:minimap_auto_start_win_enter = 1")
+    cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
+    init = function()
+      vim.g.minimap_highlight_search = 1
+      vim.g.minimap_width = 10
+      vim.g.minimap_auto_start = 1
+      vim.g.minimap_auto_start_win_enter = 1
+      vim.g.minimap_git_colors = 1
     end,
   },
   {
-    'mtth/scratch.vim'
+    'mtth/scratch.vim',
+    config = function()
+      vim.cmd("set filetype=typescript")
+    end,
   }
+}
+
+lvim.autocommands = {
+  {
+    "BufEnter",
+    {
+      pattern = { "*" },
+      command = "Minimap", -- Workaround since I'm not getting Minimap to autostart
+    }
+  },
 }
