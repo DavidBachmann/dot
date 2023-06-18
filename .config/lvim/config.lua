@@ -37,7 +37,7 @@ lvim.builtin.which_key.mappings["t"] = {
 lvim.builtin.which_key.mappings["sT"] = { "<cmd>Telescope live_grep search_dirs=.<CR>", "Search Local Fext" }
 lvim.builtin.which_key.mappings["F"] = { "<cmd>Telescope find_files search_dirs=.<CR>", "Find Local Files" }
 lvim.builtin.which_key.mappings["bs"] = { "<cmd>Scratch<CR>", "Open Scratch" }
-
+lvim.builtin.which_key.mappings["bm"] = { "<cmd>MinimapToggle<CR><cmd>MinimapUpdateHighlight<CR>", "Toggle minimap" }
 
 -- I actually need to type kj and jk on occation
 lvim.keys.insert_mode['jj'] = false
@@ -120,8 +120,38 @@ lvim.autocommands = {
   {
     "BufEnter",
     {
-      pattern = { "*" },
-      command = "Minimap", -- Workaround since I'm not getting Minimap to autostart
+      pattern = { "*.json", "*.lua", "*.tsx", "*.ts", "*.js", "*.jsx" },
+      callback = function()
+        -- Workaround since I'm not getting Minimap to autostart
+        vim.api.nvim_command("Minimap")
+        vim.api.nvim_command("MinimapUpdateHighlight")
+        vim.api.nvim_command("MinimapRefresh")
+      end
     }
   },
+  {
+    "WinEnter",
+    {
+      pattern = "*",
+      callback = function()
+        ---@diagnostic disable: param-type-mismatch
+        local mmwinnr = vim.fn.bufwinnr("-MINIMAP-")
+
+        if mmwinnr == -1 then
+          return
+        end
+
+        if vim.fn.winnr() == mmwinnr then
+          -- Go to the other window.
+          vim.api.nvim_command("wincmd t")
+        end
+      end
+    }
+  },
+  { "QuitPre", {
+    pattern = "*",
+    callback = function()
+      vim.api.nvim_command("MinimapClose")
+    end
+  } },
 }
