@@ -9,7 +9,7 @@ vim.opt.guifont = "Hack Nerd Font Mono:h15"
 vim.g.camelcasemotion_key = ','
 -- general
 lvim.format_on_save = true
-lvim.colorscheme = "tokyonight"
+lvim.colorscheme = "dracula"
 lvim.leader = "space"
 
 lvim.keys.normal_mode["<esc>"] = "<cmd>nohlsearch<cr>" -- Turn off highlight after search
@@ -84,6 +84,9 @@ formatters.setup {
 
 -- Additional Plugins
 lvim.plugins = {
+  {
+    "Mofiqul/dracula.nvim",
+  },
   {
     "psliwka/vim-smoothie"
   },
