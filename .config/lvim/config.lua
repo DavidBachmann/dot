@@ -76,6 +76,7 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
     name = "prettier",
+    cmd = 'prettier_d',
     filetypes = { "typescript", "typescriptreact", "javascript" },
   },
   { name = 'eslint' }
@@ -85,17 +86,65 @@ formatters.setup {
 -- Additional Plugins
 lvim.plugins = {
   {
+
     "Mofiqul/dracula.nvim",
   },
   {
     "psliwka/vim-smoothie"
   },
+  -- {
+  --   "ggandor/leap.nvim",
+  --   event = 'BufRead',
+  --   config = function()
+  --     require('leap').add_default_mappings(true)
+  --   end
+  -- },
   {
-    "ggandor/leap.nvim",
-    event = 'BufRead',
-    config = function()
-      require('leap').add_default_mappings(true)
-    end
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Flash Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
   },
   {
     "bkad/CamelCaseMotion"
@@ -113,61 +162,9 @@ lvim.plugins = {
     end
   },
   {
-    'wfxr/minimap.vim',
-    build = "cargo install --locked code-minimap",
-    cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
-    init = function()
-      vim.g.minimap_highlight_search = 1
-      vim.g.minimap_width = 10
-      vim.g.minimap_auto_start = 1
-      vim.g.minimap_auto_start_win_enter = 1
-      vim.g.minimap_git_colors = 1
-    end,
-  },
-  {
     'mtth/scratch.vim',
     config = function()
       vim.cmd("set filetype=typescript")
     end,
   }
-}
-
-lvim.autocommands = {
-  {
-    "BufEnter",
-    {
-      pattern = { "*.json", "*.lua", "*.tsx", "*.ts", "*.js", "*.jsx" },
-      callback = function()
-        -- Workaround since I'm not getting Minimap to autostart
-        vim.api.nvim_command("Minimap")
-        vim.api.nvim_command("MinimapUpdateHighlight")
-        vim.api.nvim_command("MinimapRefresh")
-      end
-    }
-  },
-  {
-    "WinEnter",
-    {
-      pattern = "*",
-      callback = function()
-        ---@diagnostic disable: param-type-mismatch
-        local mmwinnr = vim.fn.bufwinnr("-MINIMAP-")
-
-        if mmwinnr == -1 then
-          return
-        end
-
-        if vim.fn.winnr() == mmwinnr then
-          -- Go to the other window.
-          vim.api.nvim_command("wincmd t")
-        end
-      end
-    }
-  },
-  { "QuitPre", {
-    pattern = "*",
-    callback = function()
-      vim.api.nvim_command("MinimapClose")
-    end
-  } },
 }
