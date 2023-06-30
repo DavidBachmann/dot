@@ -72,14 +72,22 @@ lvim.builtin.nvimtree.setup.view.width = 40
 
 
 local formatters = require "lvim.lsp.null-ls.formatters"
+local linters = require "lvim.lsp.null-ls.linters"
 
 formatters.setup {
   {
-    name = "prettier",
-    cmd = 'prettier_d',
+    name = "prettierd",
+    cmd = 'prettierd',
     filetypes = { "typescript", "typescriptreact", "javascript" },
   },
-  { name = 'eslint' }
+}
+
+linters.setup {
+  {
+    name = 'eslint_d',
+    cmd = 'eslint_d',
+    filetypes = { "typescript", "typescriptreact", "javascript" },
+  }
 }
 
 
@@ -92,13 +100,6 @@ lvim.plugins = {
   {
     "psliwka/vim-smoothie"
   },
-  -- {
-  --   "ggandor/leap.nvim",
-  --   event = 'BufRead',
-  --   config = function()
-  --     require('leap').add_default_mappings(true)
-  --   end
-  -- },
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -119,22 +120,6 @@ lvim.plugins = {
           require("flash").treesitter()
         end,
         desc = "Flash Treesitter",
-      },
-      {
-        "r",
-        mode = "o",
-        function()
-          require("flash").remote()
-        end,
-        desc = "Remote Flash",
-      },
-      {
-        "R",
-        mode = { "o", "x" },
-        function()
-          require("flash").treesitter_search()
-        end,
-        desc = "Flash Treesitter Search",
       },
       {
         "<c-s>",
