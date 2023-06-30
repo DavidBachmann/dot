@@ -151,5 +151,11 @@ lvim.plugins = {
     config = function()
       vim.cmd("set filetype=typescript")
     end,
-  }
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
 }
