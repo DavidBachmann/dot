@@ -50,6 +50,21 @@ lvim.keys.visual_block_mode['J'] = false
 -- I like K for lsp.hover
 lvim.keys.visual_block_mode['K'] = false
 
+local function navigate_windows()
+  -- Default move to the next window
+  vim.cmd('wincmd w')
+
+  -- Get the buffer type of the current window
+  local buf_type = vim.api.nvim_buf_get_option(0, 'buftype')
+
+  -- If it's 'quickfix', move to the next window
+  if buf_type == 'quickfix' then
+    vim.cmd('wincmd w')
+  end
+end
+
+vim.api.nvim_set_keymap('n', '<c-w>w', '<cmd>lua navigate_windows()<CR>', { noremap = true })
+
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
@@ -70,6 +85,9 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.nvimtree.setup.view.width = 40
 
+lvim.lsp.null_ls.config.lsp_definitions = {
+  file_ignore_patterns = { "%.d.ts" },
+}
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 local linters = require "lvim.lsp.null-ls.linters"
