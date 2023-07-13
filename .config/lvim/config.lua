@@ -50,7 +50,19 @@ lvim.keys.visual_block_mode['J'] = false
 -- I like K for lsp.hover
 lvim.keys.visual_block_mode['K'] = false
 
-local function navigate_windows()
+-- smart-splits mappings
+vim.keymap.set('n', '<C-h>', require('smart-splits').resize_left)
+vim.keymap.set('n', '<C-h>', require('smart-splits').resize_left)
+vim.keymap.set('n', '<C-j>', require('smart-splits').resize_down)
+vim.keymap.set('n', '<C-k>', require('smart-splits').resize_up)
+vim.keymap.set('n', '<C-l>', require('smart-splits').resize_right)
+-- swapping buffers between windows
+vim.keymap.set('n', '<leader><leader>h', require('smart-splits').swap_buf_left)
+vim.keymap.set('n', '<leader><leader>j', require('smart-splits').swap_buf_down)
+vim.keymap.set('n', '<leader><leader>k', require('smart-splits').swap_buf_up)
+vim.keymap.set('n', '<leader><leader>l', require('smart-splits').swap_buf_right)
+
+function navigate_windows()
   -- Default move to the next window
   vim.cmd('wincmd w')
 
@@ -176,4 +188,5 @@ lvim.plugins = {
       require("nvim-ts-autotag").setup()
     end,
   },
+  { 'mrjones2014/smart-splits.nvim' }
 }
